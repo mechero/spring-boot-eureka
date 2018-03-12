@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: TPD Hola Eureka Client
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
