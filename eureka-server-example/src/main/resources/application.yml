@@ -27,12 +27,15 @@ spring:
     name: eureka-peer1
 eureka:
   instance:
-    hostname: peer1
+    hostname: eureka-peer1
+    health-check-url-path: /health
   client:
     serviceUrl:
-      defaultZone: http://peer2:${tpd.peer2Port}
-#    register-with-eureka: true
-#    fetch-registry: true
+    # the /eureka context is needed for replicas to share information (ReplicationTaskProcessor:72)
+      defaultZone: http://eureka-peer2:${tpd.peer2Port}/eureka
+      # Registration of replicas is needed: AbstractInstanceRegistry:661
+    register-with-eureka: true
+    fetch-registry: true
 server:
   port: ${tpd.peer1Port}
 
@@ -43,11 +46,12 @@ spring:
     name: eureka-peer2
 eureka:
   instance:
-    hostname: peer2
+    hostname: eureka-peer2
+    health-check-url-path: /health
   client:
     serviceUrl:
-      defaultZone: http://peer1:${tpd.peer1Port}
-#    register-with-eureka: true
-#    fetch-registry: true
+      defaultZone: http://eureka-peer1:${tpd.peer1Port}/eureka
+    register-with-eureka: true
+    fetch-registry: true
 server:
   port: ${tpd.peer2Port}
