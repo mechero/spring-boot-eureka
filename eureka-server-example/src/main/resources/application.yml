@@ -23,18 +23,23 @@ management:
 ---
 spring:
   profiles: peer1
-  application:
-    name: eureka-peer1
+#  application:
+#    # application name must be the same per StatusUtil:68
+#    name: peers
 eureka:
   instance:
     hostname: eureka-peer1
-    health-check-url-path: /health
+    # Either this one or the spring boot name must be the same (it works without setting it = UNKNOWN)
+    appname: eureka-cluster
+    # health check is not needed, according to docs is for more advanced stuff
+#    health-check-url-path: /health
   client:
     serviceUrl:
-    # the /eureka context is needed for replicas to share information (ReplicationTaskProcessor:72)
+      # the /eureka context is needed for replicas to share information (ReplicationTaskProcessor:72)
       defaultZone: http://eureka-peer2:${tpd.peer2Port}/eureka
-      # Registration of replicas is needed: AbstractInstanceRegistry:661
+    # Registration of replicas is needed: AbstractInstanceRegistry:661
     register-with-eureka: true
+    # This is useful to cache the registry locally (https://tpd.io/2p9FIqp)
     fetch-registry: true
 server:
   port: ${tpd.peer1Port}
@@ -42,12 +47,13 @@ server:
 ---
 spring:
   profiles: peer2
-  application:
-    name: eureka-peer2
+#  application:
+#    name: peers
 eureka:
   instance:
     hostname: eureka-peer2
-    health-check-url-path: /health
+    appname: eureka-cluster
+#    health-check-url-path: /health
   client:
     serviceUrl:
       defaultZone: http://eureka-peer1:${tpd.peer1Port}/eureka
