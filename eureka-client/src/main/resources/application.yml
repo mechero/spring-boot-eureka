@@ -4,3 +4,25 @@ spring:
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
+tpd:
+  appconfig:
+    spanish-alias: tpd-es
+    english-alias: tpd-en
+    spanish-port: 8084;
+    english-port: 8085;
+
+---
+spring:
+  profiles: spanish
+  application:
+    name: ${tpd.appconfig.spanish-alias}
+server:
+  port: ${tpd.appconfig.spanish-port}
+
+---
+spring:
+  profiles: english
+  application:
+    name: ${tpd.appconfig.english-alias}
+server:
+  port: ${tpd.appconfig.english-port}

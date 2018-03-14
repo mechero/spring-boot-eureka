@@ -28,6 +28,7 @@ spring:
 #    name: peers
 eureka:
   instance:
+    # The replica mode doesn't work if you use localhost (or, in general, the same hostname)
     hostname: eureka-peer1
     # Either this one or the spring boot name must be the same (it works without setting it = UNKNOWN)
     appname: eureka-cluster
