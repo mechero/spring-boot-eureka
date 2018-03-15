@@ -2,6 +2,7 @@ tpd:
   peer1Port: 8761
   peer2Port: 8762
 
+
 eureka:
   instance:
     hostname: to-be-replaced
@@ -9,8 +10,6 @@ eureka:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      # This is to avoid binding an env var to a property of type map
-      # (https://github.com/spring-cloud/spring-cloud-netflix/issues/2541)
       defaultZone: to-be-replaced
 management:
   endpoint:
@@ -25,6 +24,13 @@ management:
       # By default, only 'health' and 'info' are accessible via web
       exposure:
         include: '*'
+spring:
+  banner:
+    image:
+      location: tpd_banner.png
+      width: 76
+      height: 32
+      invert: true
 
 
 ---
@@ -44,6 +50,8 @@ eureka:
   client:
     serviceUrl:
       # the /eureka context is needed for replicas to share information (ReplicationTaskProcessor:72)
+      # Note that it's tricky to bind an env var to a property of type map like defaultZone
+      # (https://github.com/spring-cloud/spring-cloud-netflix/issues/2541)
       defaultZone: http://eureka-peer2:${tpd.peer2Port}/eureka
     # Registration of replicas is needed: AbstractInstanceRegistry:661
     register-with-eureka: true

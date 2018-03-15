@@ -11,6 +11,14 @@ tpd:
     peer1-address: eureka-peer1:8761
     peer2-address: eureka-peer2:8762
 
+spring:
+  banner:
+    image:
+      location: tpd_banner.png
+      width: 76
+      height: 32
+      invert: true
+
 ---
 spring:
   profiles: spanish

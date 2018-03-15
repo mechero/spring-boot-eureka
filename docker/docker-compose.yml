@@ -28,5 +28,31 @@ services:
     networks:
       - network-eureka
 
+  client-spanish:
+    build:
+      context: ../eureka-client
+    image: eureka-client-tpd
+    container_name: client-spanish
+    environment:
+      - SPRING_PROFILES_ACTIVE=spanish
+      - LOGGING_LEVEL_COM_NETFLIX_DISCOVERY=DEBUG
+    ports:
+      - "8084:8084"
+    networks:
+      - network-eureka
+
+  client-english:
+    build:
+      context: ../eureka-client
+    image: eureka-client-tpd
+    container_name: client-english
+    environment:
+      - SPRING_PROFILES_ACTIVE=english
+      - LOGGING_LEVEL_COM_NETFLIX_DISCOVERY=DEBUG
+    ports:
+      - "8085:8085"
+    networks:
+      - network-eureka
+
 networks:
   network-eureka:
