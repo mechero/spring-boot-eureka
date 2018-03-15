@@ -1,0 +1,32 @@
+version: "2"
+
+services:
+
+  eureka-peer1:
+    build:
+      context: ../eureka-server-example
+    image: eureka-server-tpd
+    container_name: eureka-peer1
+    environment:
+      - SPRING_PROFILES_ACTIVE=peer1
+      - LOGGING_LEVEL_COM_NETFLIX_DISCOVERY=DEBUG
+    ports:
+      - "8761:8761"
+    networks:
+      - network-eureka
+
+  eureka-peer2:
+    build:
+      context: ../eureka-server-example
+    image: eureka-server-tpd
+    container_name: eureka-peer2
+    environment:
+      - SPRING_PROFILES_ACTIVE=peer2
+      - LOGGING_LEVEL_COM_NETFLIX_DISCOVERY=DEBUG
+    ports:
+      - "8762:8762"
+    networks:
+      - network-eureka
+
+networks:
+  network-eureka:

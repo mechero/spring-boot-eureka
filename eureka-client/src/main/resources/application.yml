@@ -1,15 +1,15 @@
-spring:
-  application:
-    name: TPD Hola Eureka Client
 eureka:
   instance:
     lease-renewal-interval-in-seconds: 10
+
 tpd:
   appconfig:
     spanish-alias: tpd-es
     english-alias: tpd-en
-    spanish-port: 8084;
-    english-port: 8085;
+    spanish-port: 8084
+    english-port: 8085
+    peer1-address: eureka-peer1:8761
+    peer2-address: eureka-peer2:8762
 
 ---
 spring:
@@ -18,6 +18,11 @@ spring:
     name: ${tpd.appconfig.spanish-alias}
 server:
   port: ${tpd.appconfig.spanish-port}
+# to make it more interesting, let's have each client registering at a different instance
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${tpd.appconfig.peer1-address}/eureka
 
 ---
 spring:
@@ -26,3 +31,7 @@ spring:
     name: ${tpd.appconfig.english-alias}
 server:
   port: ${tpd.appconfig.english-port}
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${tpd.appconfig.peer2-address}/eureka

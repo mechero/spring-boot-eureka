@@ -24,10 +24,15 @@ public class HolaController {
     this.englishVirtualAlias = englishVirtualAlias;
   }
 
+  @GetMapping("/hola-server")
+  public String holaServer() {
+    return "Hola desde el cliente en Español!";
+  }
+
   @GetMapping("/hola")
   public String hola() {
     final InstanceInfo instance = discoveryClient.getNextServerFromEureka(englishVirtualAlias, false);
-    final String theOtherResponse = restTemplate.getForObject(instance.getHomePageUrl() + "/hello", String.class);
-    return "Hola desde el cliente en Español! My English peer says: " + theOtherResponse;
+    final String theOtherResponse = restTemplate.getForObject(instance.getHomePageUrl() + "/hello-server", String.class);
+    return holaServer() + " My English peer says: " + theOtherResponse;
   }
 }
