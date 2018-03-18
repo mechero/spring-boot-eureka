@@ -7,4 +7,4 @@ This source code includes two projects with proper configuration to execute:
 
 If you want to read the complete guide, it's available for free at The Practical Developer site: 
 
-[Spring Boot Service Discovery with Eureka Peer Awareness](https://thepracticaldeveloper.com/2018/03/18/spring-boot-service-discovery-with-eureka)
+[Spring Boot Service Discovery with Eureka Peer Awareness](https://thepracticaldeveloper.com/2018/03/18/spring-boot-service-discovery-eureka/)
